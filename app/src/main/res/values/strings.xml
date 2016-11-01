@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Compass</string>
+    <string name="heading">Heading: 0.0</string>
+    <string name="option">Camera Heading</string>
+    <string name="compass_image_description">Image of a compass rose, that rotates based on your
+        orientation</string>
+</resources>
