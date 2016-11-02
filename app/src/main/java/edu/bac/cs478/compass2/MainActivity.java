@@ -1,6 +1,7 @@
 package edu.bac.cs478.compass2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -98,14 +99,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     transformedRotationMatrix);
 
             /*
-                compute the three orientation angles of the device (in radians):
+                Compute the three orientation angles of the device (in radians):
                   azimuth = orientation[0]
                   pitch = orientation[1]
                   roll = orientation[2]
             */
             SensorManager.getOrientation(transformedRotationMatrix, orientation);
 
-            //  get the azimuth in degrees and set heading TextView
+            /*
+                Get the azimuth in degrees and set heading TextView:
+                The azimuth is the angle between the y-axis and magnetic north, rotated around the
+                z-axis.
+            */
             float degree = (float)Math.toDegrees(orientation[0]);
             degree = Math.round(degree);
 
@@ -141,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     /***********************************************************************************************
-     create the Action Bar overflow menu
+                    create the App Bar / Overflow menu
      **********************************************************************************************/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,13 +155,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return super.onCreateOptionsMenu(menu);
     }
 
+    /***********************************************************************************************
+                    Handle App Bar / Overflow clicks
+     **********************************************************************************************/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //  TO-DO: camera functionality
             case R.id.camera_menu_item:
-                //Intent intent = new Intent(this, CameraActivity.class);
-                //startActivity(intent);
+                /*
+                    Check available hardware and permissions:
+                      CameraCheck activity makes sure that the device has a rear-facing camera and
+                      that the user has granted the app camera permissions
+                */
+                Intent intent = new Intent(this, CameraCheck.class);
+                startActivity(intent);
                 return true;
 
             default:
