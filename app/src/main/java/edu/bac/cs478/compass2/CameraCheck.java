@@ -65,9 +65,9 @@ public class CameraCheck extends Activity
      * This feature of the application requires a camera, specifically a rear-facing camera. This
      * method checks if the device has a camera.
      *
-     * @param context       Activity context
-     * @return              <code>true</code> if the device has a camera;
-     *                      <code>false</code> otherwise.
+     * @param context Activity context
+     * @return <code>true</code> if the device has a camera;
+     *         <code>false</code> otherwise.
      */
     private boolean checkCameraHardware(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
@@ -78,9 +78,9 @@ public class CameraCheck extends Activity
      * To properly utilize this feature of the application, a rear-facing camera is required. This
      * method checks if the device has one.
      *
-     * @param manager       instance of a CameraManager
-     * @return              <code>true</code> if a rear-facing camera is found;
-     *                      <code>false</code> otherwise.
+     * @param manager instance of a CameraManager
+     * @return <code>true</code> if a rear-facing camera is found;
+     *         <code>false</code> otherwise.
      */
     private boolean checkRearCam(CameraManager manager) {
         boolean rearCamCheck = false;
