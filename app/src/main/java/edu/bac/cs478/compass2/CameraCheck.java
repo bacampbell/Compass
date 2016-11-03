@@ -13,11 +13,25 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+/**
+ * This activity of the application is used to verify requirements needed in order to use the Camera
+ * Compass mode, which displays the image from the rear-facing camera along with a compass image and
+ * heading. In order to use that feature of the application, the device must have a rear-facing
+ * camera and the user must give camera permissions.
+ */
 public class CameraCheck extends Activity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int CAMERA_PERMISSIONS = 0;
 
+    /**
+     * Set the ContentView of the activity. Then check permissions and device for necessary
+     * hardware. Start the CameraCompass activity if the device has a rear-facing camera and the
+     * user has given camera permissions.
+     *
+     * @param savedInstanceState saved state of the activity. <code>null</code> if state has not
+     *                           been saved
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +56,7 @@ public class CameraCheck extends Activity
                         (CameraManager)getSystemService(Context.CAMERA_SERVICE);
                 if (checkRearCam(cameraManager)) {
                     //  start camera activity
+                    
 
                 }
                 else {
@@ -62,8 +77,9 @@ public class CameraCheck extends Activity
 
 
     /**
-     * This feature of the application requires a camera, specifically a rear-facing camera. This
-     * method checks if the device has a camera.
+     * To use the Camera Compass feature of the application, the device requires a camera,
+     * specifically a rear-facing camera. This method checks if the device has the necessary
+     * hardware.
      *
      * @param context Activity context
      * @return <code>true</code> if the device has a camera;
@@ -75,8 +91,8 @@ public class CameraCheck extends Activity
 
 
     /**
-     * To properly utilize this feature of the application, a rear-facing camera is required. This
-     * method checks if the device has one.
+     * To properly utilize the Camera Compass mode of the application, a rear-facing camera is
+     * required. This method checks if the device has one.
      *
      * @param manager instance of a CameraManager
      * @return <code>true</code> if a rear-facing camera is found;
@@ -104,6 +120,14 @@ public class CameraCheck extends Activity
         return rearCamCheck;
     }
 
+    /**
+     * Callback for the result from requesting permissions. This method is invoked for every call on
+     * requestPermissions(android.app.Activity, String[], int).
+     *
+     * @param requestCode int id of the permissions we're requesting
+     * @param permissions the requested permissions
+     * @param grantResults the results of asking for permissions
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -120,6 +144,7 @@ public class CameraCheck extends Activity
 
                     if (checkRearCam(cameraManager)) {
                         //  start camera activity
+
 
                     }
                     //  rear-facing camera was not found

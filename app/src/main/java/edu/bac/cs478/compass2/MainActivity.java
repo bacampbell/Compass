@@ -19,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * MainActivity of the application. It will display a compass image and the heading based on the
+ * orientation of the device compared to magnetic north.
+ */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;
@@ -36,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * Set the ContentView for the activity and initialize the App Bar, the two Views of the
      * activity, and the SensorManager.
      *
-     * @param savedInstanceState <code>null</code> unless the state of the activity is saved.
+     * @param savedInstanceState saved state of the activity. <code>null</code> if state has not
+     *                           been saved
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     /**
-     * Register the rotation vector sensor
+     * Register the rotation vector sensor listener
      */
     @Override
     protected void onResume() {
@@ -80,13 +85,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.unregisterListener(this);
     }
 
-    /***********************************************************************************************
-                     onSensorChanged
-     **********************************************************************************************/
+
     /**
+     * Called on new reading from sensor. We will use the sensor data to determine the orientation
+     * of the device.
      *
-     *
-     * @param event
+     * @param event holds information such as the sensor's type, the time-stamp, accuracy, and
+     *              the sensor's data
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
