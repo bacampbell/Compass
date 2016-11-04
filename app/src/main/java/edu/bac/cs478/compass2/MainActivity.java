@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager mSensorManager;
 
-    private float[] rotationMatrixFromEvent = new float[16];
-    private float[] transformedRotationMatrix = new float[16];
-    private float[] orientation = new float[3];
-    private float currentDegree = 0f;
+    protected float[] rotationMatrixFromEvent = new float[16];
+    protected float[] transformedRotationMatrix = new float[16];
+    protected float[] orientation = new float[3];
+    protected float currentDegree = 0f;
 
     private TextView headingView;
     private ImageView compassView;
@@ -116,8 +116,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             //    roll = orientation[2]
             SensorManager.getOrientation(transformedRotationMatrix, orientation);
 
-            // Get the azimuth in degrees and set heading TextView. The azimuth is the angle between
-            // the y-axis and magnetic north, rotated around the z-axis.
+            // Get the azimuth in degrees and set the heading TextView. The azimuth (in this
+            // orientation, i.e. the device held flat in portrait mode with the screen facing
+            // upwards and parallel to the ground) is the angle between the y-axis and magnetic
+            // north, rotated around the z-axis.
             float degree = (float)Math.toDegrees(orientation[0]);
             degree = Math.round(degree);
 
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * Required by SensorEventListener interface, but not used here.
+     * Required by {@link SensorEventListener}, but not used here.
      *
      * @param sensor ID of the sensor being monitored
      * @param accuracy new accuracy of the sensor
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /**
      * Initialize the contents of the Activity's options menu.
      *
-     * @param menu the options menu that will contain the menu items
+     * @param menu the options {@link Menu} that will contain the menu items
      * @return <code>true</code> if you want to display the menu;
      *         <code>false</code> otherwise.
      */
@@ -175,9 +177,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     /**
-     * Handle user selections in the App Bar and Overflow area.
+     * Start {@link CameraCompassActivity} on user selection in the App Bar.
      *
-     * @param item OptionsMenu item that the user selected.
+     * @param item {@link MenuItem} item that the user selected.
      * @return <code>true</code> on code completion on item selection;
      *         <code>false</code> by default.
      */
@@ -186,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (item.getItemId()) {
             case R.id.camera_menu_item:
 
-                // Start the CameraCheck activity.
-                Intent intent = new Intent(this, CameraCheck.class);
+                // Start the CameraCompass activity.
+                Intent intent = new Intent(this, CameraCompassActivity.class);
                 startActivity(intent);
 
                 return true;
