@@ -11,16 +11,13 @@
      TO-DO:
         add a "sighting notch" to the camera preview
         add a rotating compass image to the camera preview
-        will location permissions need to be granted? app is working fine in airplane mode currently
 
  -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.bac.cs478.compass2">
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera2" android:required="false" />
-    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"

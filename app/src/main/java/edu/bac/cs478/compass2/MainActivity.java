@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // Create a rotation animation.
             RotateAnimation ra = new RotateAnimation(
                     currentDegree,
-                    degree,
+                    -degree,
                     Animation.RELATIVE_TO_SELF, 0.5f,
                     Animation.RELATIVE_TO_SELF, 0.5f);
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             compassView.startAnimation(ra);
 
             // Update the new current degree.
-            currentDegree = degree;
+            currentDegree = -degree;
         }
     }
 

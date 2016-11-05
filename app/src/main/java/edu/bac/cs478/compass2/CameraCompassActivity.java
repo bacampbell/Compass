@@ -15,7 +15,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +39,10 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
     private float[] orientation = new float[3];
 
     private TextView headingView;
+    private ImageView compassView;
 
     private static final int CAMERA_PERMISSIONS = -1;
+    protected float currentDegree = 0f;
 
 
     /**
@@ -99,9 +104,10 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
             }
         }
 
-        // Setup the heading View and SensorManager.
+        // Setup the heading and compass Views and SensorManager.
         headingView = (TextView)findViewById(R.id.augReality_heading);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        compassView = (ImageView)findViewById(R.id.augCompass);
     }
 
 
@@ -283,6 +289,25 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
             }
 
             headingView.setText("Heading: " + Float.toString(degree) + " degrees");
+
+            // Create a rotation animation.
+            RotateAnimation ra = new RotateAnimation(
+                    currentDegree,
+                    -degree,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.5f);
+
+            // How long the animation will take place.
+            ra.setDuration(210);
+
+            // Set the animation after the end of the reservation status.
+            ra.setFillAfter(true);
+
+            // Start the animation.
+            compassView.startAnimation(ra);
+
+            // Update the new current degree.
+            currentDegree = -degree;
         }
     }
 

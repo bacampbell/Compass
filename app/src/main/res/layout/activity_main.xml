@@ -26,7 +26,7 @@
         android:id="@+id/imageViewCompass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/compass"
+        android:src="@drawable/compass2"
         android:paddingBottom="25dp"
         android:layout_gravity="center"
         android:padding="5dp"
