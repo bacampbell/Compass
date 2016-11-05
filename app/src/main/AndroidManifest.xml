@@ -11,7 +11,7 @@
      TO-DO:
         add a "sighting notch" to the camera preview
         add a rotating compass image to the camera preview
-
+        will location permissions need to be granted? app is working fine in airplane mode currently
 
  -->
 <manifest
@@ -20,7 +20,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera2" android:required="false" />
-    <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -34,7 +33,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
