@@ -19,8 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static edu.bac.cs478.compass2.CameraCheck.CAMERA_PERMISSIONS;
-
 /**
  * This activity of the application allows the user to see their heading through their camera.
  * It could be useful in the event that the user needs to follow a certain heading and wants to find
@@ -38,6 +36,8 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
     private float[] orientation = new float[3];
 
     private TextView headingView;
+
+    private static final int CAMERA_PERMISSIONS = -1;
 
 
     /**
@@ -159,7 +159,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
     /**
      * Check the device for a camera.
      *
-     * @param context Activity context
+     * @param context {@link CameraCompassActivity} context
      * @return <code>true</code> If a camera is found;
      *         <code>false</code> otherwise.
      */
