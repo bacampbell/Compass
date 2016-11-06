@@ -6,7 +6,7 @@
         android:id="@+id/camera_menu_item"
         app:showAsAction="ifRoom"
         android:title="@string/option"
-        android:icon="@drawable/ar_inverse">
+        android:icon="@drawable/camera_inverse">
     </item>
 
 </menu>

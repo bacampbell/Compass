@@ -59,9 +59,9 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_layout);
 
-        // Hide the status bar.
+        // Hide the status and navigation bar.
         View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         decorView.setSystemUiVisibility(uiOptions);
 
         // Check if the device has a camera.
