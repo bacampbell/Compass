@@ -9,7 +9,8 @@
      |_____________________________________|
 
      TO-DO:
-        add a "sighting notch" to the camera preview: translucent camera preview except in the center?
+        - add a "sighting notch" to the camera preview: translucent camera preview except in the center?
+        - have the status and nav bars re-hide if the user touches the screen, but does not leave camera mode
 
  -->
 <manifest

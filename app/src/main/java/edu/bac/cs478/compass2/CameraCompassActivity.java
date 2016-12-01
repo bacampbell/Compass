@@ -80,7 +80,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                 // Check if the device has a rear-facing camera.
                 backCamId = getBackCamId();
                 if (backCamId < 0) {
-                    Toast.makeText(this, "This feature requires a rear-facing camera",
+                    Toast.makeText(this, "This feature is unavailable without a rear-facing camera",
                             Toast.LENGTH_SHORT).show();
 
                     finish();
@@ -134,7 +134,9 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                     // Make sure the device has a rear-facing camera.
                     backCamId = getBackCamId();
                     if (backCamId < 0) {
-                        Toast.makeText(this, "This feature requires a rear-facing camera",
+                        Toast.makeText(
+                                this,
+                                "This feature is unavailable without a rear-facing camera",
                                 Toast.LENGTH_SHORT).show();
 
                         finish();
