@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -21,6 +22,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * This activity of the application allows the user to see their heading through their camera.
@@ -30,6 +33,8 @@ import android.widget.Toast;
 @SuppressWarnings("deprecation")
 public class CameraCompassActivity extends Activity implements SensorEventListener {
     private Camera camera;
+    private CameraPreview camPreview;
+    private FrameLayout preview;
     private int backCamId = 0;
 
     private SensorManager mSensorManager;
@@ -61,7 +66,10 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
 
         // Hide the status and navigation bar.
         View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
         // Check if the device has a camera.
@@ -182,9 +190,9 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
      */
     @Override
     protected void onPause() {
+        super.onPause();
         releaseCamera();
         mSensorManager.unregisterListener(this);
-        super.onPause();
     }
 
 
@@ -199,6 +207,15 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                 this,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
                 SensorManager.SENSOR_DELAY_GAME);
+
+        try
+        {
+            camera = Camera.open(backCamId);
+            camPreview = new CameraPreview(this, camera);
+            preview.addView(camPreview);
+        } catch (Exception e){
+            Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+        }
     }
 
 
@@ -216,8 +233,9 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
      * Method to release the camera object.
      */
     private void releaseCamera() {
-        //camPreview = null;
         if (camera != null){
+            camera.stopPreview();
+            camPreview.getHolder().removeCallback(camPreview);
             camera.release();
             camera = null;
         }
@@ -328,8 +346,8 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
      * Method used to create the camera preview and add it to the layout's view.
      */
     public void createPreview() {
-        CameraPreview camPreview = new CameraPreview(this, camera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        camPreview = new CameraPreview(this, camera);
+        preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(camPreview);
     }
 }

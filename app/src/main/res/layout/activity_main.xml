@@ -30,6 +30,6 @@
         android:paddingBottom="25dp"
         android:layout_gravity="center"
         android:padding="5dp"
-        android:contentDescription="@string/compass_image_description"/>
+        android:contentDescription="@string/compass_image_description" />
 
 </LinearLayout>
