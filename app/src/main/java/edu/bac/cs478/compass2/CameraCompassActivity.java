@@ -46,7 +46,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
     private TextView headingView;
     private ImageView compassView;
 
-    private static final int CAMERA_PERMISSIONS = -1;
+    private static final int CAMERA_PERMISSIONS = 0;
     protected float currentDegree = 0f;
 
 
@@ -70,6 +70,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
         decorView.setSystemUiVisibility(uiOptions);
 
         // Check if the device has a camera.
@@ -106,7 +107,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
             // Ask for required camera permissions if they haven't yet been given.
             else {
                 ActivityCompat.requestPermissions(
-                        this,
+                        CameraCompassActivity.this,
                         new String[]{Manifest.permission.CAMERA},
                         CAMERA_PERMISSIONS);
             }
