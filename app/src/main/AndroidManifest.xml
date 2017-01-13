@@ -10,7 +10,7 @@
 
      TO-DO:
         - add a "sighting notch" to the camera preview: translucent camera preview except in the center?
-        - auto resize the compass image in the camera preview for different screen sizes
+        - setPreviewTexture failed in onSurfaceChanged - possible race condition?
 
  -->
 <manifest
@@ -21,6 +21,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
