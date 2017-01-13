@@ -3,9 +3,11 @@ package edu.bac.cs478.compass2;
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
-import android.view.SurfaceView;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
 import java.io.IOException;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -13,6 +15,7 @@ import static android.content.ContentValues.TAG;
  */
 @SuppressWarnings("deprecation")
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+
     private SurfaceHolder holder;
     private Camera camera;
 
@@ -31,7 +34,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // created and destroyed.
         holder = getHolder();
         holder.addCallback(this);
-
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         holder.setKeepScreenOn(true);
     }
@@ -46,7 +48,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
             camera.setPreviewDisplay(holder);
-            //camera.startPreview();
         } catch (IOException e) {
             Log.d(TAG, "Error setting camera preview: " + e.getMessage());
         }
@@ -80,9 +81,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // Start preview.
         try {
             camera.stopPreview();
-            camera.setPreviewDisplay(this.holder);
+            camera.setPreviewDisplay(holder);
             camera.startPreview();
-
         } catch (Exception e){
             Log.d("Surface Changed", "Error starting camera preview: " + e.getMessage());
         }

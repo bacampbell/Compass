@@ -10,7 +10,6 @@
 
      TO-DO:
         - add a "sighting notch" to the camera preview: translucent camera preview except in the center?
-        - setPreviewTexture failed in onSurfaceChanged - possible race condition?
 
  -->
 <manifest
@@ -36,7 +35,7 @@
         </activity>
         <activity
             android:name=".CameraCompassActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
