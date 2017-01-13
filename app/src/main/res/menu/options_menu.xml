@@ -6,7 +6,7 @@
         android:id="@+id/camera_menu_item"
         app:showAsAction="ifRoom"
         android:title="@string/option"
-        android:icon="@drawable/camera_inverse">
+        android:icon="@drawable/ic_party_mode_black_24dp">
     </item>
 
 </menu>

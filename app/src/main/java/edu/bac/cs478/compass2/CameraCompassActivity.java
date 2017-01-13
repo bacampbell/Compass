@@ -20,10 +20,9 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * This activity of the application allows the user to see their heading through their camera.
@@ -65,13 +64,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         setContentView(R.layout.activity_camera_layout);
 
         // Hide the status and navigation bar.
-        View decorView = getWindow().getDecorView();
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-        decorView.setSystemUiVisibility(uiOptions);
+        UiChangeListener();
 
         // Check if the device has a camera.
         if(!checkCameraHardware(this)) {
@@ -117,6 +110,15 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         headingView = (TextView)findViewById(R.id.augReality_heading);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.augCompass);
+
+
+        // Set the margins so that the compass image shows on only the bottom 1/4 of the screen.
+        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+
+        int valueInPixels = (int) getResources().getDimension(R.dimen.offset);
+        rl.setMargins(0,0,0,valueInPixels);
+        compassView.setLayoutParams(rl);
     }
 
 
@@ -209,13 +211,14 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
                 SensorManager.SENSOR_DELAY_GAME);
 
+        UiChangeListener();
         try
         {
             camera = Camera.open(backCamId);
             camPreview = new CameraPreview(this, camera);
             preview.addView(camPreview);
         } catch (Exception e){
-            Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+            Log.d("On Resume", "Error starting camera preview: " + e.getMessage());
         }
     }
 
@@ -350,5 +353,14 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         camPreview = new CameraPreview(this, camera);
         preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(camPreview);
+    }
+
+    public void UiChangeListener() {
+        final View decorView = getWindow().getDecorView();
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 }
