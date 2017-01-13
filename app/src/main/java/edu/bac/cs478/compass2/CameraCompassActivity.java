@@ -355,6 +355,9 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         preview.addView(camPreview);
     }
 
+    /**
+     * Method used to enable sticky immersive mode.
+     */
     public void UiChangeListener() {
         final View decorView = getWindow().getDecorView();
         int uiOptions =
