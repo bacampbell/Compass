@@ -1,23 +1,28 @@
 package com.bcampbelldev.compassapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 /**
@@ -56,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.imageViewCompass);
         headingView = (TextView)findViewById(R.id.heading);
-
-        // Compass is meant to be held with the device screen parallel to the ground.
-        Toast.makeText(this, "Keep device screen parallel to the ground", Toast.LENGTH_LONG).show();
     }
 
 
@@ -67,6 +69,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @Override
     protected void onResume() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        boolean dialog_status = prefs.getBoolean("dialog_status", false);
+
+        if (!dialog_status) {
+            View dialog = getLayoutInflater().inflate(R.layout.dialog, null);
+            final CheckBox userCheck = (CheckBox) dialog.findViewById(R.id.dialog_layout);
+
+            new AlertDialog.Builder(MainActivity.this)
+                    .setMessage(R.string.dialog_message)
+                    .setTitle(R.string.dialog_title)
+                    .setView(dialog)
+                    .setPositiveButton(R.string.got_it_button, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            SharedPreferences prefs = PreferenceManager
+                                    .getDefaultSharedPreferences(MainActivity.this);
+
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putBoolean("dialog_status", userCheck.isChecked());
+                            editor.commit();
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+
         super.onResume();
 
         mSensorManager.registerListener(

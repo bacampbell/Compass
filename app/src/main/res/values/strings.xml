@@ -4,4 +4,10 @@
     <string name="option">Camera Heading</string>
     <string name="compass_image_description">Image of a compass rose, that rotates based on your
         orientation</string>
+    <string name="footer">Keep device screen parallel to the ground</string>
+    <string name="dialog_message">To ensure the most accurate reading, calibrate your device by
+        spinning it in a figure 8 pattern.</string>
+    <string name="dialog_title">Here\'s a quick tip</string>
+    <string name="got_it_button">Got it</string>
+    <string name="understood_checkbox">Understood, don\'t show this again.</string>
 </resources>
