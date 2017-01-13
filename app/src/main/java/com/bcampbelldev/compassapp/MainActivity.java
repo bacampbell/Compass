@@ -65,13 +65,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     /**
-     * Register the rotation vector sensor listener
+     * Register the rotation vector sensor listener and display dialog if not previously dismissed.
      */
     @Override
     protected void onResume() {
+        // Determine if the user has opted to not show the dialog.
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         boolean dialog_status = prefs.getBoolean("dialog_status", false);
 
+        // Show the dialog and save the user's selection on whether or not to show it again.
         if (!dialog_status) {
             View dialog = getLayoutInflater().inflate(R.layout.dialog, null);
             final CheckBox userCheck = (CheckBox) dialog.findViewById(R.id.dialog_layout);
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putBoolean("dialog_status", userCheck.isChecked());
-                            editor.commit();
+                            editor.apply();
                             dialog.dismiss();
                         }
                     })
