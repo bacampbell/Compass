@@ -16,11 +16,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,15 +112,6 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         headingView = (TextView)findViewById(R.id.augReality_heading);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.augCompass);
-
-
-        // Set the margins so that the compass image shows on only the bottom 1/4 of the screen.
-        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-
-        int valueInPixels = (int) getResources().getDimension(R.dimen.offset);
-        rl.setMargins(0,0,0,valueInPixels);
-        compassView.setLayoutParams(rl);
     }
 
 
@@ -203,7 +194,8 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
 
     /**
      * Register a motion sensor listener of type rotation vector. This is how we determine the
-     * device's orientation.
+     * device's orientation in space. Also, enter sticky immersive mode and adjust the margins of the
+     * compass rose imageView.
      */
     @Override
     protected void onResume() {
@@ -213,7 +205,15 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
                 SensorManager.SENSOR_DELAY_GAME);
 
+        // Sticky Immersive mode.
         UiChangeListener();
+
+        // Adjust imageView margins
+        ViewGroup.MarginLayoutParams params =
+                (ViewGroup.MarginLayoutParams)compassView.getLayoutParams();
+        params.bottomMargin = (int) getResources().getDimension(R.dimen.offset);
+        compassView.requestLayout();
+
         try
         {
             camera = Camera.open(backCamId);

@@ -23,6 +23,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -95,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     })
                     .show();
         }
+
+        // Remind the user to keep their device screen parallel to the ground
+        String reminder = "Keep device screen parallel to the ground";
+        Toast.makeText(this, reminder, Toast.LENGTH_LONG).show();
 
         super.onResume();
 
