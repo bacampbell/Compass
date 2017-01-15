@@ -13,5 +13,5 @@
     <dimen name="offset_420">-926dp</dimen>
     <dimen name="offset_xxhigh">-810dp</dimen>
     <dimen name="offset_560">-694dp</dimen>
-    <dimen name="offset_xxxhigh">-607dp</dimen>
+    <dimen name="offset_xxxhigh">-807dp</dimen>
 </resources>
