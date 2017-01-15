@@ -2,16 +2,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="offset_high">-1630dp</dimen>
-    <dimen name="offset_260">-1504dp</dimen>
-    <dimen name="offset_280">-1397dp</dimen>
-    <dimen name="offset_300">-1304dp</dimen>
-    <dimen name="offset_xhigh">-1222dp</dimen>
-    <dimen name="offset_340">-1150dp</dimen>
-    <dimen name="offset_360">-1086dp</dimen>
-    <dimen name="offset_400">-978dp</dimen>
-    <dimen name="offset_420">-931dp</dimen>
-    <dimen name="offset_xxhigh">-815dp</dimen>
-    <dimen name="offset_560">-698dp</dimen>
-    <dimen name="offset_xxxhigh">-611dp</dimen>
+    <dimen name="offset_high">-1620dp</dimen>
+    <dimen name="offset_260">-1495dp</dimen>
+    <dimen name="offset_280">-1388dp</dimen>
+    <dimen name="offset_300">-1296dp</dimen>
+    <dimen name="offset_xhigh">-1215dp</dimen>
+    <dimen name="offset_340">-1143dp</dimen>
+    <dimen name="offset_360">-1080dp</dimen>
+    <dimen name="offset_400">-972dp</dimen>
+    <dimen name="offset_420">-926dp</dimen>
+    <dimen name="offset_xxhigh">-810dp</dimen>
+    <dimen name="offset_560">-694dp</dimen>
+    <dimen name="offset_xxxhigh">-607dp</dimen>
 </resources>

@@ -125,6 +125,60 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         headingView = (TextView)findViewById(R.id.augReality_heading);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.augCompass);
+
+        // Adjust imageView margins
+        ViewGroup.MarginLayoutParams params =
+                (ViewGroup.MarginLayoutParams)compassView.getLayoutParams();
+
+        DisplayMetrics dm = this.getResources().getDisplayMetrics();
+
+        // Determine screen dpi to correctly set margin
+        int density = dm.densityDpi;
+
+        switch (density) {
+            case DENSITY_HIGH:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_high);
+                break;
+            case DENSITY_260:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_260);
+                break;
+            case DENSITY_280:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_280);
+                break;
+            case DENSITY_300:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_300);
+                break;
+            case DENSITY_XHIGH:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xhigh);
+                break;
+            case DENSITY_340:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_340);
+                break;
+            case DENSITY_360:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_360);
+                break;
+            case DENSITY_400:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_400);
+                break;
+            case DENSITY_420:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_420);
+                break;
+            case DENSITY_XXHIGH:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xxhigh);
+                break;
+            case DENSITY_560:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_560);
+                break;
+            case DENSITY_XXXHIGH:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xxxhigh);
+                break;
+            default:
+                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xxhigh);
+                break;
+        }
+        Log.i("setting margin", "density = " + density + ". Offset = " + params.bottomMargin);
+
+        compassView.requestLayout();
     }
 
 
@@ -220,60 +274,6 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
 
         // Sticky Immersive mode.
         UiChangeListener();
-
-        // Adjust imageView margins
-        ViewGroup.MarginLayoutParams params =
-                (ViewGroup.MarginLayoutParams)compassView.getLayoutParams();
-
-        DisplayMetrics dm = this.getResources().getDisplayMetrics();
-
-        // Determine screen dpi to correctly set margin
-        int density = dm.densityDpi;
-
-        switch (density) {
-            case DENSITY_HIGH:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_high);
-                break;
-            case DENSITY_260:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_260);
-                break;
-            case DENSITY_280:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_280);
-                break;
-            case DENSITY_300:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_300);
-                break;
-            case DENSITY_XHIGH:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xhigh);
-                break;
-            case DENSITY_340:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_340);
-                break;
-            case DENSITY_360:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_360);
-                break;
-            case DENSITY_400:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_400);
-                break;
-            case DENSITY_420:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_420);
-                break;
-            case DENSITY_XXHIGH:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xxhigh);
-                break;
-            case DENSITY_560:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_560);
-                break;
-            case DENSITY_XXXHIGH:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xxxhigh);
-                break;
-            default:
-                params.bottomMargin = (int)getResources().getDimension(R.dimen.offset_xxhigh);
-                break;
-        }
-        Log.d("setting margin", "density = " + density + ". Offset = " + params.bottomMargin);
-
-        compassView.requestLayout();
 
         try
         {
