@@ -15,23 +15,23 @@
 
     <ImageView
         android:id="@+id/imageViewCompass"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:src="@drawable/compass2"
         android:layout_gravity="center"
         android:padding="5dp"
         android:contentDescription="@string/compass_image_description"
-        android:layout_height="431dp"
-        android:layout_weight="75" />
+        android:layout_weight="7" />
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="@string/heading"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:textSize="18sp"
         android:fontFamily="sans-serif-thin"
-        android:layout_weight="25"
+        android:layout_weight="1"
         android:textColor="@color/black"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="1"

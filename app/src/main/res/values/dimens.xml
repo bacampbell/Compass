@@ -2,5 +2,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="offset">-2450px</dimen>
+    <dimen name="offset_high">-1630dp</dimen>
+    <dimen name="offset_260">-1504dp</dimen>
+    <dimen name="offset_280">-1397dp</dimen>
+    <dimen name="offset_300">-1304dp</dimen>
+    <dimen name="offset_xhigh">-1222dp</dimen>
+    <dimen name="offset_340">-1150dp</dimen>
+    <dimen name="offset_360">-1086dp</dimen>
+    <dimen name="offset_400">-978dp</dimen>
+    <dimen name="offset_420">-931dp</dimen>
+    <dimen name="offset_xxhigh">-815dp</dimen>
+    <dimen name="offset_560">-698dp</dimen>
+    <dimen name="offset_xxxhigh">-611dp</dimen>
 </resources>
