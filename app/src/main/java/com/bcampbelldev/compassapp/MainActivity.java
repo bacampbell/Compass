@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 degree += 360;
             }
 
-            headingView.setText("Heading: " + Float.toString(degree) + " degrees");
+            String heading = String.format("%1$d\u00B0", (int)degree);
+            headingView.setText(heading);
 
             // Create a rotation animation.
             RotateAnimation ra = new RotateAnimation(

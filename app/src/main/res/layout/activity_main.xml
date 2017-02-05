@@ -13,29 +13,29 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <ImageView
-        android:id="@+id/imageViewCompass"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:src="@drawable/compass2"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:contentDescription="@string/compass_image_description"
-        android:layout_weight="7" />
-
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="@string/heading"
-        android:layout_gravity="center_horizontal"
-        android:textSize="18sp"
+        android:gravity="bottom"
+        android:textSize="28sp"
         android:fontFamily="sans-serif-thin"
         android:layout_weight="1"
         android:textColor="@color/black"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:shadowRadius="2"/>
+        android:shadowRadius="2"
+        android:paddingStart="25dp"/>
+
+    <ImageView
+        android:id="@+id/imageViewCompass"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/compass"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:contentDescription="@string/compass_image_description"
+        android:layout_weight="7" />
 
 </LinearLayout>
