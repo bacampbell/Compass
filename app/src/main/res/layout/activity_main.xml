@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -18,11 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="bottom"
-        android:textSize="28sp"
+        android:textSize="18sp"
         android:fontFamily="sans-serif-thin"
         android:layout_weight="1"
-        android:textColor="@color/black"
-        android:shadowColor="@color/text_shadow"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
@@ -36,6 +33,6 @@
         android:layout_gravity="center"
         android:padding="5dp"
         android:contentDescription="@string/compass_image_description"
-        android:layout_weight="7" />
+        android:layout_weight="6" />
 
 </LinearLayout>

@@ -13,7 +13,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set Day/Night mode automatically based on time and last known location.
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -155,21 +161,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // orientation, i.e. the device held flat in portrait mode with the screen facing
             // upwards and parallel to the ground) is the angle between the y-axis and magnetic
             // north, rotated around the z-axis.
-            float degree = (float)Math.toDegrees(orientation[0]);
-            degree = Math.round(degree);
+            int azimuth = (int)Math.toDegrees(orientation[0]);
 
             // Azimuth ranges from -180 to 180. Convert to 0-360 range to match compass image.
-            if (degree < 0) {
-                degree += 360;
+            if (azimuth < 0) {
+                azimuth += 360;
             }
 
-            String heading = String.format("%1$d\u00B0", (int)degree);
-            headingView.setText(heading);
+            // Determine compass point text as long as the user is not calibrating the compass.
+            String compassPoint = getCompassPoint(azimuth);
+
+            String heading = String.format("%1$d\u00B0 %2$s", azimuth, compassPoint);
+
+            // Make the degree heading larger than the compass point text.
+            SpannableString ss = new SpannableString(heading);
+            int spanEnd = 2;
+            if (azimuth != 0) spanEnd = (int)(Math.log10(azimuth)+2);
+            ss.setSpan(new RelativeSizeSpan(2f), 0, spanEnd, 0);
+            headingView.setText(ss);
 
             // Create a rotation animation.
             RotateAnimation ra = new RotateAnimation(
                     currentDegree,
-                    -degree,
+                    -azimuth,
                     Animation.RELATIVE_TO_SELF, 0.5f,
                     Animation.RELATIVE_TO_SELF, 0.5f);
 
@@ -183,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             compassView.startAnimation(ra);
 
             // Update the new current degree.
-            currentDegree = -degree;
+            currentDegree = -azimuth;
         }
     }
 
@@ -233,5 +247,48 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             default:
                 return false;
         }
+    }
+
+
+    /**
+     * Method to determine the compass point from our current degree.
+     * @param deg the calculated azimuth.
+     * @return String value of the compass point that corresponds to <code>deg</code>
+     */
+    public String getCompassPoint(int deg) {
+        if (deg <= 5 && deg >= 0) return "N";
+        else if (deg <= 359 && deg >= 355) return "N";
+        else if (deg <= 16 && deg >= 6) return "NE";
+        else if (deg <= 28 && deg >= 17) return "NNE";
+        else if (deg <= 39 && deg >= 29) return "NEbN";
+        else if (deg <= 50 && deg >= 40) return "NE";
+        else if (deg <= 61 && deg >= 51) return "NEbE";
+        else if (deg <= 73 && deg >= 62) return "ENE";
+        else if (deg <= 84 && deg >= 74) return "EbN";
+        else if (deg <= 95 && deg >= 85) return "E";
+        else if (deg <= 106 && deg >= 96) return "EbS";
+        else if (deg <= 118 && deg >= 107) return "ESE";
+        else if (deg <= 129 && deg >= 119) return "SEbE";
+        else if (deg <= 140 && deg >= 130) return "SE";
+        else if (deg <= 151 && deg >= 141) return "SEbS";
+        else if (deg <= 163 && deg >= 152) return "SSE";
+        else if (deg <= 174 && deg >= 164) return "SbE";
+        else if (deg <= 185 && deg >= 175) return "S";
+        else if (deg <= 196 && deg >= 186) return "SbW";
+        else if (deg <= 208 && deg >= 197) return "SSW";
+        else if (deg <= 219 && deg >= 209) return "SWbS";
+        else if (deg <= 230 && deg >= 220) return "SW";
+        else if (deg <= 241 && deg >= 231) return "SWbW";
+        else if (deg <= 253 && deg >= 242) return "WSW";
+        else if (deg <= 264 && deg >= 254) return "WbS";
+        else if (deg <= 275 && deg >= 265) return "W";
+        else if (deg <= 286 && deg >= 276) return "WbN";
+        else if (deg <= 298 && deg >= 287) return "WNW";
+        else if (deg <= 309 && deg >= 299) return "NWbW";
+        else if (deg <= 320 && deg >= 310) return "NW";
+        else if (deg <= 331 && deg >= 321) return "NWbN";
+        else if (deg <= 343 && deg >= 332) return "NNW";
+        else if (deg <= 354 && deg >= 344) return "NbW";
+        else return "";
     }
 }

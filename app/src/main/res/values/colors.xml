@@ -10,4 +10,5 @@
     <color name="text_shadow">#BDBDBD</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="background">#ffffff</color>
 </resources>
