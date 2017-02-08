@@ -14,16 +14,25 @@
 
     <TextView
         android:id="@+id/heading"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="bottom"
         android:textSize="18sp"
         android:fontFamily="sans-serif-thin"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
         android:paddingStart="25dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/arrow"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/imageViewCompass"
@@ -33,6 +42,6 @@
         android:layout_gravity="center"
         android:padding="5dp"
         android:contentDescription="@string/compass_image_description"
-        android:layout_weight="6" />
+        android:layout_weight="13" />
 
 </LinearLayout>

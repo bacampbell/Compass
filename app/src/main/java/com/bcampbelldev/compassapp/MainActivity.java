@@ -44,8 +44,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected float currentDegree = 0f;
 
     protected int currentNightMode;
+    protected RangeMap map = new RangeMap();
 
     private TextView headingView;
+    private TextView arrowView;
     private ImageView compassView;
 
 
@@ -74,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.imageViewCompass);
         headingView = (TextView)findViewById(R.id.heading);
+        arrowView = (TextView)findViewById(R.id.arrow);
+        arrowView.setText("\u0394");
+
+        // Populate compass RangeMap
+        fillMap(map);
     }
 
 
@@ -174,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 azimuth += 360;
             }
 
-            // Determine compass point text as long as the user is not calibrating the compass.
-            String compassPoint = getCompassPoint(azimuth);
+            // Determine compass point text.
+            String compassPoint = map.getValueForKey(azimuth);
 
             String heading = String.format("%1$d\u00B0 %2$s", azimuth, compassPoint);
 
@@ -233,7 +240,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     /**
-     * Start {@link CameraCompassActivity} on user selection in the App Bar.
+     * Start {@link CameraCompassActivity} on user selection of the camera activity in the App Bar.
+     * Toggle between day and night mode on user selection in the options menu.
      *
      * @param item {@link MenuItem} item that the user selected.
      * @return <code>true</code> on code completion on item selection;
@@ -282,44 +290,44 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     /**
-     * Method to determine the compass point from our current degree.
-     * @param deg the calculated azimuth.
-     * @return String value of the compass point that corresponds to <code>deg</code>
+     * Method that populates the RangeMap so that a range of compass headings corresponds to a
+     * compass point. E.g. 42 degree heading corresponds to "NE".
+     *
+     * @param map the RangeMap to populate.
      */
-    public String getCompassPoint(int deg) {
-        if (deg <= 5 && deg >= 0) return "N";
-        else if (deg <= 359 && deg >= 355) return "N";
-        else if (deg <= 16 && deg >= 6) return "NE";
-        else if (deg <= 28 && deg >= 17) return "NNE";
-        else if (deg <= 39 && deg >= 29) return "NEbN";
-        else if (deg <= 50 && deg >= 40) return "NE";
-        else if (deg <= 61 && deg >= 51) return "NEbE";
-        else if (deg <= 73 && deg >= 62) return "ENE";
-        else if (deg <= 84 && deg >= 74) return "EbN";
-        else if (deg <= 95 && deg >= 85) return "E";
-        else if (deg <= 106 && deg >= 96) return "EbS";
-        else if (deg <= 118 && deg >= 107) return "ESE";
-        else if (deg <= 129 && deg >= 119) return "SEbE";
-        else if (deg <= 140 && deg >= 130) return "SE";
-        else if (deg <= 151 && deg >= 141) return "SEbS";
-        else if (deg <= 163 && deg >= 152) return "SSE";
-        else if (deg <= 174 && deg >= 164) return "SbE";
-        else if (deg <= 185 && deg >= 175) return "S";
-        else if (deg <= 196 && deg >= 186) return "SbW";
-        else if (deg <= 208 && deg >= 197) return "SSW";
-        else if (deg <= 219 && deg >= 209) return "SWbS";
-        else if (deg <= 230 && deg >= 220) return "SW";
-        else if (deg <= 241 && deg >= 231) return "SWbW";
-        else if (deg <= 253 && deg >= 242) return "WSW";
-        else if (deg <= 264 && deg >= 254) return "WbS";
-        else if (deg <= 275 && deg >= 265) return "W";
-        else if (deg <= 286 && deg >= 276) return "WbN";
-        else if (deg <= 298 && deg >= 287) return "WNW";
-        else if (deg <= 309 && deg >= 299) return "NWbW";
-        else if (deg <= 320 && deg >= 310) return "NW";
-        else if (deg <= 331 && deg >= 321) return "NWbN";
-        else if (deg <= 343 && deg >= 332) return "NNW";
-        else if (deg <= 354 && deg >= 344) return "NbW";
-        else return "";
+    public void fillMap(RangeMap map) {
+        map.put(0, 5, "N");
+        map.put(6, 16, "NbE");
+        map.put(17, 28, "NNE");
+        map.put(29, 39, "NEbN");
+        map.put(40, 50, "NE");
+        map.put(51, 61, "NEbE");
+        map.put(62, 73, "ENE");
+        map.put(74, 84, "EbN");
+        map.put(85, 95, "E");
+        map.put(96, 106, "EbS");
+        map.put(107, 118, "ESE");
+        map.put(119, 129, "SEbE");
+        map.put(130, 140, "SE");
+        map.put(141, 151, "SEbS");
+        map.put(152, 163, "SSE");
+        map.put(164, 174, "SbE");
+        map.put(175, 185, "S");
+        map.put(186, 196, "SbW");
+        map.put(197, 208, "SSW");
+        map.put(209, 219, "SWbS");
+        map.put(220, 230, "SW");
+        map.put(231, 241, "SWbW");
+        map.put(242, 253, "WSW");
+        map.put(254, 264, "WbS");
+        map.put(265, 275, "W");
+        map.put(276, 286, "WbN");
+        map.put(287, 298, "WNW");
+        map.put(299, 309, "NWbW");
+        map.put(310, 320, "NW");
+        map.put(321, 331, "NWbN");
+        map.put(332, 343, "NNW");
+        map.put(344, 354, "NbW");
+        map.put(355, 359, "N");
     }
 }
