@@ -7,6 +7,8 @@
     <color name="light_font">#FBFBFB</color>
     <color name="grey_font">#616161</color>
     <color name="dark_font">#212121</color>
+    <color name="textColorPrimary">#ffffff</color>
+    <color name="textColorSecondary">#ffffff</color>
     <color name="text_shadow">#BDBDBD</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="black">#000000</color>

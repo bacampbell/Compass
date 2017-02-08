@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected float[] orientation = new float[3];
     protected float currentDegree = 0f;
 
+    protected int currentNightMode;
+
     private TextView headingView;
     private ImageView compassView;
 
@@ -58,8 +61,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set Day/Night mode automatically based on time and last known location.
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        // Get current Day/Night mode.
+        currentNightMode = getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -105,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Remind the user to keep their device screen parallel to the ground
         String reminder = "Keep device screen parallel to the ground";
-        Toast.makeText(this, reminder, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, reminder, Toast.LENGTH_SHORT).show();
 
         super.onResume();
 
@@ -237,15 +243,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.camera_menu_item:
-
                 // Start the CameraCompass activity.
                 Intent intent = new Intent(this, CameraCompassActivity.class);
                 startActivity(intent);
-
                 return true;
-
+            case R.id.mode_menu_item:
+                modeChange(currentNightMode);
+                return true;
             default:
                 return false;
+        }
+    }
+
+
+    /**
+     * Method that changes the Night Mode parameter and recreates the app to make the change.
+     *
+     * @param currentMode the current mode the app is using.
+     * @return <code>true</code> on successful mode change.
+     */
+    public boolean modeChange(int currentMode) {
+        switch (currentMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                // Currently in day mode, switch to night mode.
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                recreate();
+                return true;
+            case Configuration.UI_MODE_NIGHT_YES:
+                // Currently in night mode, switch to day mode.
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                recreate();
+                return true;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+                return true;
         }
     }
 

@@ -9,4 +9,10 @@
         android:icon="@drawable/ic_party_mode_black_24dp">
     </item>
 
+    <item
+        android:id="@+id/mode_menu_item"
+        app:showAsAction="never"
+        android:title="@string/mode_menu_item">
+    </item>
+
 </menu>

@@ -10,4 +10,5 @@
     <string name="dialog_title">Here\'s a quick tip</string>
     <string name="got_it_button">Got it</string>
     <string name="understood_checkbox">Understood, don\'t show this again.</string>
+    <string name="mode_menu_item">Day/Night Mode Toggle</string>
 </resources>
