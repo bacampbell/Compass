@@ -57,6 +57,8 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
     private float[] transformedRotationMatrix = new float[16];
     private float[] orientation = new float[3];
 
+    protected RangeMap map = new RangeMap();
+
     private TextView headingView;
     private ImageView compassView;
 
@@ -125,6 +127,9 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
         headingView = (TextView)findViewById(R.id.augReality_heading);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.augCompass);
+
+        // Populate compass RangeMap
+        fillMap(map);
 
         // Adjust imageView margins
         ViewGroup.MarginLayoutParams params =
@@ -367,7 +372,7 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
             // orientation, i.e. the device in landscape mode with the screen perpendicular to the
             // ground and facing the user) is the angle between the z-axis and magnetic north,
             // rotated around the y-axis.
-            float degree = (float) Math.toDegrees(orientation[0]);
+            int degree = (int) Math.toDegrees(orientation[0]);
             degree = Math.round(degree);
 
             // Azimuth ranges from -180 to 180. Convert to 0-360 range.
@@ -375,7 +380,10 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                 degree += 360;
             }
 
-            String heading = String.format("%1$d\u00B0", (int)degree);
+            // Determine compass point text.
+            String compassPoint = map.getValueForKey(degree);
+
+            String heading = String.format("%1$d\u00B0 %2$s", degree, compassPoint);
             headingView.setText(heading);
 
             // Create a rotation animation.
@@ -430,5 +438,48 @@ public class CameraCompassActivity extends Activity implements SensorEventListen
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+    }
+
+
+    /**
+     * Method that populates the RangeMap so that a range of compass headings corresponds to a
+     * compass point. E.g. 42 degree heading corresponds to "NE".
+     *
+     * @param map the RangeMap to populate.
+     */
+    public void fillMap(RangeMap map) {
+        map.put(0, 5, "N");
+        map.put(6, 16, "NbE");
+        map.put(17, 28, "NNE");
+        map.put(29, 39, "NEbN");
+        map.put(40, 50, "NE");
+        map.put(51, 61, "NEbE");
+        map.put(62, 73, "ENE");
+        map.put(74, 84, "EbN");
+        map.put(85, 95, "E");
+        map.put(96, 106, "EbS");
+        map.put(107, 118, "ESE");
+        map.put(119, 129, "SEbE");
+        map.put(130, 140, "SE");
+        map.put(141, 151, "SEbS");
+        map.put(152, 163, "SSE");
+        map.put(164, 174, "SbE");
+        map.put(175, 185, "S");
+        map.put(186, 196, "SbW");
+        map.put(197, 208, "SSW");
+        map.put(209, 219, "SWbS");
+        map.put(220, 230, "SW");
+        map.put(231, 241, "SWbW");
+        map.put(242, 253, "WSW");
+        map.put(254, 264, "WbS");
+        map.put(265, 275, "W");
+        map.put(276, 286, "WbN");
+        map.put(287, 298, "WNW");
+        map.put(299, 309, "NWbW");
+        map.put(310, 320, "NW");
+        map.put(321, 331, "NWbN");
+        map.put(332, 343, "NNW");
+        map.put(344, 354, "NbW");
+        map.put(355, 359, "N");
     }
 }
