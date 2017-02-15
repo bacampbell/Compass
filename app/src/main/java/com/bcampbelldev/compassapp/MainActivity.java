@@ -36,13 +36,12 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private SensorManager mSensorManager;
+    private SensorManager sm;
 
     protected float[] rotationMatrixFromEvent = new float[16];
     protected float[] transformedRotationMatrix = new float[16];
     protected float[] orientation = new float[3];
     protected float currentDegree = 0f;
-
     protected int currentNightMode;
     protected RangeMap map = new RangeMap();
 
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         myToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         setSupportActionBar(myToolbar);
 
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         compassView = (ImageView)findViewById(R.id.imageViewCompass);
         headingView = (TextView)findViewById(R.id.heading);
         arrowView = (TextView)findViewById(R.id.arrow);
@@ -122,9 +121,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         super.onResume();
 
-        mSensorManager.registerListener(
+        sm.registerListener(
                 this,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
+                sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
                 SensorManager.SENSOR_DELAY_FASTEST);
     }
 
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
 
-        mSensorManager.unregisterListener(this);
+        sm.unregisterListener(this);
     }
 
 
